@@ -1,9 +1,9 @@
-/*globals window, document, console, $, setInterval, Matrix */
+/*globals window, document, console, $, setInterval, ASCIIMatrix */
 
 var ASCIICanvas = function () {
     "use strict";
 
-    var frame = [],
+    var frame = ASCIIMatrix(),
         mouseX = 0,
         mouseY = 0,
         canvasHeight = window.innerHeight,
@@ -17,45 +17,9 @@ var ASCIICanvas = function () {
             j = 0;
 
         //Clear old frame
-        for (i = 0; i < frameHeight; i += 1) {
-            for (j = 0; j < frameWidth; j += 1) {
-                frame[j][i] = 255;
-            }
-        }
+        frame.clear(255);
 
-        //Put new data
-        // frame[mouseX][mouseY] = 255;
-        // if (undefined !== frame[mouseX + 1]){
-        //     frame[mouseX + 1][mouseY] = Math.floor((Math.random() * 256));
-        // }
-
-        // if (undefined !== frame[mouseX - 1]){
-        //     frame[mouseX - 1][mouseY] = Math.floor((Math.random() * 256));
-        // }
-
-        // if (undefined !== frame[mouseX][mouseY + 1]){
-        //     frame[mouseX][mouseY + 1] = Math.floor((Math.random() * 256));
-        // }
-
-        // if (undefined !== frame[mouseX][mouseY - 1]){
-        //     frame[mouseX][mouseY - 1] = Math.floor((Math.random() * 256));
-        // }
-        frame[mouseX][mouseY] = frameNumber % 255;
-        if (undefined !== frame[mouseX + 1]) {
-            frame[mouseX + 1][mouseY] = frameNumber % 255;
-        }
-
-        if (undefined !== frame[mouseX - 1]) {
-            frame[mouseX - 1][mouseY] = frameNumber % 255;
-        }
-
-        if (undefined !== frame[mouseX][mouseY + 1]) {
-            frame[mouseX][mouseY + 1] = frameNumber % 255;
-        }
-
-        if (undefined !== frame[mouseX][mouseY - 1]) {
-            frame[mouseX][mouseY - 1] = frameNumber % 255;
-        }
+        frame.setElement(mouseY, mouseX, frameNumber % 255);
     }
 
     function mapColorToChar(colorValue) {
@@ -84,7 +48,7 @@ var ASCIICanvas = function () {
         for (i = 0; i < frameHeight; i += 1) {
             line = '';
             for (j = 0; j < frameWidth; j += 1) {
-                line += mapColorToChar(frame[j][i]);
+                line += mapColorToChar(frame.getElement(i, j));
             }
             ascii.appendChild(document.createTextNode(line));
             ascii.appendChild(document.createElement("br"));
@@ -111,15 +75,7 @@ var ASCIICanvas = function () {
     }
 
     function initFrame() {
-        var i = 0,
-            j = 0;
-
-        for (i = 0; i < frameWidth; i += 1) {
-            frame.push([]);
-            for (j = 0; j < frameHeight; j += 1) {
-                frame[i].push(255);
-            }
-        }
+        frame.init(frameWidth, frameHeight, 255);
         console.log(frame);
     }
 
