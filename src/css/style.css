@@ -1,0 +1,53 @@
+* {margin: 0; padding: 0;}
+
+body {
+    text-align: center;
+}
+
+#ascii {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 70%;
+}
+
+#container {
+	overflow: hidden;
+	display: inline-block;
+	margin: 20px;
+	border: thin solid #000;
+}
+
+#cheat-sheet {
+	filter: flipv fliph;
+	width: 200px;
+	height: 400px;
+	border: thin solid #000;
+	margin: 5px;
+	float: left;
+} 
+#current-frame {
+	background-color: #CCC;
+	border: thin solid #000;
+	margin: 5px;
+	float: left;
+	height: 400px;
+	width: 600px;
+	clear: none;
+}
+#thumbnails {
+	margin: 5px;
+	clear: left;
+	float: left;
+	height: 90px;
+	width: 506px;
+	background-color: #EEE;
+	border: thin solid #000;
+}
+.button {
+	background-color: #999;
+	margin: 5px;
+	float: left;
+	height: 90px;
+	width: 90px;
+	border: thin solid #000;
+}

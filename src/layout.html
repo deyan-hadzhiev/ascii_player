@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>ASCII Animator</title>
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+        <link href="css/jquery.thumbnailScroller.css" rel="stylesheet" type="text/css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+        <script src="js/jquery-ui-1.8.13.custom.min.js"></script>
+    </head>
+
+    <body>
+        <div align="center" id="container">
+            <div align="left" id="cheat-sheet">
+                
+            </div>
+            
+            <div align="right" id="current-frame">
+            </div>
+            
+            <div align="left" id="thumbnails">
+
+            </div>
+            
+            <div align="left" class="button" id="addFrame">
+            
+            </div>
+            
+            <div align="left" class="button" id="removeFrame">
+            
+            </div>
+            
+            <div align="left" class="button" id="playPause">
+            </div>
+            <div id="tS1" class="jThumbnailScroller">
+                    <div class="jTscrollerContainer">
+                        <div class="jTscroller">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                        </div>
+                    </div>
+                </div>
+            <script type="text/javascript">
+                jQuery.noConflict();
+                (function($){
+                window.onload=function(){
+                    $("#tS1").thumbnailScroller({ 
+                        scrollerType:"hoverAccelerate", 
+                        scrollerOrientation:"horizontal", 
+                        scrollEasing:"easeOutCirc", 
+                        scrollEasingAmount:0, 
+                        acceleration:0, 
+                        scrollSpeed:0, 
+                        noScrollCenterSpace:0, 
+                        autoScrolling:0, 
+                        autoScrollingSpeed:0, 
+                        autoScrollingEasing:"easeInOutQuad", 
+                        autoScrollingDelay:0 
+                    });
+                }
+                })(jQuery);
+            </script>
+            <script src="js/jquery.thumbnailScroller.js"></script>
+        </div>
+    </body>
+</html>
