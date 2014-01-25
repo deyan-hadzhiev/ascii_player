@@ -5,13 +5,13 @@ var ASCIIFrameManager = function () {
 
     var status = 0,
         currentFrameIndex = 0,
-        frames = [],
-        canvas = ASCIICanvas();
+        frames = [];
+        //canvas = ASCIICanvas();
 
     function drawFrame(frameIndex) {
-        if (frameIndex < frame.length) {
+        if (frameIndex < frames.length) {
             currentFrameIndex = frameIndex;
-            canvas.drawFrame(frames[frameIndex]);
+            ASCIICanvas.drawFrame(frames[frameIndex]);
         } else {
             console.log("Incorrect frame index: ", frameIndex);
         }
@@ -20,27 +20,36 @@ var ASCIIFrameManager = function () {
     }
 
     function fillFrameList() {
-        var i = 0;
+        var i = 0,
+            scroller = null;
 
         //Clear the scroller
         $(".jTscroller").empty();
 
+        //scroller = document.get
         //Add the frames list to the scroller
-        for (i = 0; i < frames.length){
+        for (i = 0; i < frames.length; i += 1) {
             $(".jTscroller").add($("<a href=\"#\">" + i + "</a>"));
         }
+    }
+
+    function addFrameAt(position) {
+        var frame = ASCIIMatrix();
+        frame.init();
+        frames.splice(position, 0, frame);
     }
 
     function initEventHandlers() {
         $("a").click(function (e) {
             e.preventDefault();
-            drawFrame(parseInt(e.target.text);
+            drawFrame(parseInt(e.target.text));
         });
 
         $("#addFrame").click(function (e) {
             e.preventDefault();
-            //addFrameAt(currentFrame + 1);
+            addFrameAt(currentFrameIndex + 1);
             fillFrameList();
+            console.log(frames);
         });
 
         $("#removeFrame").click(function (e) {
@@ -69,9 +78,8 @@ var ASCIIFrameManager = function () {
 
     return {
         init: function () {
-            canvas.init();
             initEventHandlers();
-            drawFrame(0);
+            addFrameAt(0);
             setInterval(render, 1000 / 30);
         }
     };
