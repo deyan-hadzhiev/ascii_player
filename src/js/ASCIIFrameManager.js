@@ -1,4 +1,4 @@
-/*globals window, document, console, $, setInterval, Matrix */
+/*globals window, document, console, $, setInterval, ASCIIMatrix, ASCIICanvas */
 
 var ASCIIFrameManager = function () {
     "use strict";
@@ -41,8 +41,12 @@ var ASCIIFrameManager = function () {
     }
 
     function addFrameAt(position) {
-        var frame = ASCIIMatrix();
-        frame.init(44, 75, 0);
+        var frame = new ASCIIMatrix(),
+            frameWidth = 0,
+            frameHeight = 0;
+        frameWidth = Math.floor((ASCIICanvas.getWidth() - 2) / ASCIICanvas.getFontWidth());
+        frameHeight = Math.floor((ASCIICanvas.getHeight() - 2) / ASCIICanvas.getFontHeight());
+        frame.init(frameHeight, frameWidth, 0);
         currentFrameIndex = position;
         frames.splice(position, 0, frame);
         drawFrame(currentFrameIndex);
@@ -60,7 +64,6 @@ var ASCIIFrameManager = function () {
             e.preventDefault();
             addFrameAt(currentFrameIndex + 1);
             fillFrameList();
-            //console.log(frames);
         });
 
         $("#removeFrame").click(function (e) {
@@ -79,7 +82,6 @@ var ASCIIFrameManager = function () {
     function render() {
         //TODO: Check statuses and eveything
         if (status) {
-            console.log("playing");
             if (currentFrameIndex + 1 >= frames.length){
                 status = 0;
             } else {
