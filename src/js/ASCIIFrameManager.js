@@ -6,7 +6,6 @@ var ASCIIFrameManager = function () {
     var status = 0,
         currentFrameIndex = 0,
         frames = [];
-        //canvas = ASCIICanvas();
 
     function drawFrame(frameIndex) {
         if (frameIndex < frames.length) {
@@ -15,47 +14,60 @@ var ASCIIFrameManager = function () {
         } else {
             console.log("Incorrect frame index: ", frameIndex);
         }
-        
-        //TODO: Update GUI
     }
 
     function fillFrameList() {
         var i = 0,
-            scroller = null;
+            scroller = null,
+            element = null;
+
+        scroller = $(".jTscroller")[0];
 
         //Clear the scroller
-        $(".jTscroller").empty();
+        scroller.innerHTML = '';
 
-        //scroller = document.get
         //Add the frames list to the scroller
         for (i = 0; i < frames.length; i += 1) {
-            $(".jTscroller").add($("<a href=\"#\">" + i + "</a>"));
+            element = document.createElement('a');
+            element.setAttribute('href', '#');
+            element.innerText = i;
+            scroller.appendChild(element);
         }
-    }
 
-    function addFrameAt(position) {
-        var frame = ASCIIMatrix();
-        frame.init();
-        frames.splice(position, 0, frame);
-    }
-
-    function initEventHandlers() {
         $("a").click(function (e) {
             e.preventDefault();
             drawFrame(parseInt(e.target.text));
         });
+    }
 
+    function addFrameAt(position) {
+        var frame = ASCIIMatrix();
+        frame.init(44, 75, 0);
+        currentFrameIndex = position;
+        frames.splice(position, 0, frame);
+        drawFrame(currentFrameIndex);
+    }
+
+    function removeFrameAt(position) {
+        if (position > 0) {
+            currentFrameIndex = position - 1;
+            frames.splice(position, 1);
+        }
+    }
+
+    function initEventHandlers() {
         $("#addFrame").click(function (e) {
             e.preventDefault();
             addFrameAt(currentFrameIndex + 1);
             fillFrameList();
-            console.log(frames);
+            //console.log(frames);
         });
 
         $("#removeFrame").click(function (e) {
             e.preventDefault();
-            //removeFrame(currentFrame);
+            removeFrameAt(currentFrameIndex);
             fillFrameList();
+            //console.log(frames);
         });
 
         $("#playPause").click(function (e) {
@@ -80,6 +92,7 @@ var ASCIIFrameManager = function () {
         init: function () {
             initEventHandlers();
             addFrameAt(0);
+            fillFrameList();
             setInterval(render, 1000 / 30);
         }
     };

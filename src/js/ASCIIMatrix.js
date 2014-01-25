@@ -16,7 +16,7 @@ var ASCIIMatrix = function (copy) {
             if (defaultValue === undefined) {
                 defaultValue = 0;
             }
-            arr.lenght = 0;
+            arr.length = 0;
             for (i = 0; i < rows; i += 1) {
                 arr.push([]);
                 for (j = 0; j < columns; j += 1) {
@@ -55,14 +55,14 @@ var ASCIIMatrix = function (copy) {
         },
 
         getWidth: function () {
-            return arr.length;
-        },
-
-        getHeight: function () {
             if (arr.length > 0) {
                 return arr[0].length;
             }
             return 0;
+        },
+
+        getHeight: function () {
+            return arr.length;
         }
     };
 };
