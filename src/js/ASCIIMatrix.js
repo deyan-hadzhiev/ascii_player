@@ -1,6 +1,13 @@
-var ASCIIMatrix = function () {
+var ASCIIMatrix = function (copy) {
     "use strict";
-    var arr = [];
+    var arr = [],
+        copyIndex = 0;
+
+    if (copy !== undefined) {
+        for (copyIndex = 0; copyIndex < copy.arr.length; copyIndex += 1) {
+            arr[copyIndex] = copy.arr[copyIndex].slice();
+        }
+    }
 
     return {
         init: function (rows, columns, defaultValue) {
@@ -45,6 +52,17 @@ var ASCIIMatrix = function () {
 
         setElement: function (i, j, element) {
             arr[i][j] = element;
+        },
+
+        getWidth: function () {
+            return arr.length;
+        },
+
+        getHeight: function () {
+            if (arr.length > 0) {
+                return arr[0].length;
+            }
+            return 0;
         }
     };
 };
