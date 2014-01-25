@@ -1,4 +1,4 @@
-/*globals window, document, console, $, setInterval */
+/*globals window, document, console, $, setInterval, Matrix */
 
 var ASCIICanvas = function () {
     "use strict";
@@ -127,7 +127,14 @@ var ASCIICanvas = function () {
         init: function () {
             initEventHandlers();
             initFrame();
-            setInterval(step, 1000 / 60);
+            step();
+            $("a").click(function(e){
+               e.preventDefault();
+               console.log(e);
+               console.log(e.target.text);
+               $("#ascii")[0].innerHTML = "asdasdasd";
+               console.log($("#ascii")[0].innerHTML);
+            });
         }
     };
 };
