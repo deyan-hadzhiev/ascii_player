@@ -21,38 +21,32 @@
                 <pre id="ascii"></pre>
             </div>
             
-            <div align="left" id="thumbnails">
-                <div id="scroller">
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
-                    <a href="#">1</a>
+            <div id="toolbar">
+                <div align="left" id="thumbnails">
+                    <div id="scroller">
+                    </div>
+                </div>
+                
+                <div align="left" class="button" id="addFrame">
+                
+                </div>
+                
+                <div align="left" class="button" id="removeFrame">
+                
+                </div>
+                
+                <div align="left" class="button" id="playPause">
+                </div>
+
+                <input type="checkbox" class="checkbox" id="loopFrames">
+                    Loop over the play?
+                </input>
+
+                <div class="text-field-wrapper">
+                    Framerate(fps) :
+                    <input type="text" class="textfield" id="fps" value="30">
                 </div>
             </div>
-            
-            <div align="left" class="button" id="addFrame">
-            
-            </div>
-            
-            <div align="left" class="button" id="removeFrame">
-            
-            </div>
-            
-            <div align="left" class="button" id="playPause">
-            </div>
-
-            
 
             <script type="text/javascript">
                 ASCIIFrameManager().init();
