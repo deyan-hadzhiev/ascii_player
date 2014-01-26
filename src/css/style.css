@@ -36,7 +36,6 @@ body {
     clear: none;
 }
 #thumbnails {
-<<<<<<< HEAD
 	margin: 5px;
 	clear: left;
 	float: left;
@@ -45,30 +44,14 @@ body {
 	background-color: #EEE;
 	border: thin solid #000;
 }
-.button {
-	background-color: #999;
-	margin: 5px;
-	float: left;
-	height: 54px;
-	width: 54px;
-	border: thin solid #000;
-=======
-    margin: 5px;
-    clear: left;
-    float: left;
-    height: 90px;
-    width: 545px;
-    background-color: #EEE;
-    border: thin solid #000;
-}
+
 .button {
     background-color: #999;
     margin: 5px;
-    float: right;
-    height: 90px;
-    width: 90px;
+    float: left;
+    height: 54px;
+    width: 54px;
     border: thin solid #000;
->>>>>>> 45669009372903488ffbf7dead0ab602f6ef7aa5
 }
 
 #scroller{

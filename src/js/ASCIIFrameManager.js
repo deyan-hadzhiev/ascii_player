@@ -86,6 +86,7 @@ var ASCIIFrameManager = function () {
             if (currentFrameIndex + 1 >= frames.length){
                 status = 0;
             } else {
+                console.log("playing");
                 drawFrame(currentFrameIndex + 1);
             }
         }
