@@ -53,7 +53,7 @@ var ASCIIFrameManager = function () {
         for (i = 0; i < frames.length; i += 1) {
             element = document.createElement('a');
             element.setAttribute('href', '#');
-            element.innerText = i;
+            element.innerHTML = i;
             scroller.appendChild(element);
         }
 
