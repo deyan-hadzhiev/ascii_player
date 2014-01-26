@@ -6,8 +6,8 @@ var ASCIIFrameManager = function () {
     var playing = false,
         currentFrameIndex = 0,
         frames = [],
-        loopFrames = true,
-        frameRate = 60;
+        loopFrames = false,
+        frameRate = 30;
 
     function drawFrame(frameIndex) {
         if (frameIndex < frames.length) {
@@ -15,6 +15,10 @@ var ASCIIFrameManager = function () {
             ASCIICanvas.drawFrame(frames[frameIndex]);
 
             if (playing) {
+                // get some variables controling the play from the html's input fields
+                loopFrames = document.getElementById("loopFrames").checked;
+                var fps = parseInt(document.getElementById("fps").value);
+                frameRate = (fps > 0 && fps <= 60 ? fps : frameRate);
                 //Queue next frame drawing
                 setTimeout(function () {
                     if (currentFrameIndex + 1 < frames.length){
@@ -52,7 +56,7 @@ var ASCIIFrameManager = function () {
         for (i = 0; i < frames.length; i += 1) {
             element = document.createElement('a');
             element.setAttribute('href', '#');
-            element.innerText = i;
+            element.innerHTML = i;
             scroller.appendChild(element);
         }
 
@@ -124,6 +128,9 @@ var ASCIIFrameManager = function () {
                 playing = false;
             } else {
                 playing = true;
+                if (currentFrameIndex + 1 >= frames.length) {
+                    currentFrameIndex = 0;
+                }
                 drawFrame(currentFrameIndex);
             }
         });

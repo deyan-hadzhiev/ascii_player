@@ -21,7 +21,7 @@ body {
 
 #cheat-sheet {
     filter: flipv fliph;
-    width: 200px;
+    width: 220px;
     height: 480px;
     border: thin solid #000;
     margin: 5px;
@@ -40,7 +40,7 @@ body {
 	margin: 5px;
 	clear: left;
 	float: left;
-	height: auto;
+	height: 54px;
 	width: 506px;
 	background-color: #EEE;
 	border: thin solid #000;
@@ -57,6 +57,7 @@ body {
 
 #scroller{
 	width: 506px;
+	height: 54px;
     overflow: scroll;
     overflow-y: hidden;
     -ms-overflow-y: hidden;
@@ -72,4 +73,12 @@ body {
 	margin: 5px;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-style: normal;
+}
+
+.checkbox {
+    margin: 5px;
+}
+
+.textfield {
+    width: 3em;
 }
