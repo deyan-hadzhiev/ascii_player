@@ -28,7 +28,6 @@ var ASCIIFrameManager = function () {
                             drawFrame(0); 
                         } else {
                             playing = false;
-                            currentFrameIndex = 0;
                         }
                         
                     }
@@ -129,6 +128,9 @@ var ASCIIFrameManager = function () {
                 playing = false;
             } else {
                 playing = true;
+                if (currentFrameIndex + 1 >= frames.length) {
+                    currentFrameIndex = 0;
+                }
                 drawFrame(currentFrameIndex);
             }
         });
