@@ -19,9 +19,10 @@ var ASCIIFrameManager = function () {
     function fillFrameList() {
         var i = 0,
             scroller = null,
-            element = null;
+            element = null,
+            plugin = null;
 
-        scroller = $(".jTscroller")[0];
+        scroller = $("#scroller")[0];
 
         //Clear the scroller
         scroller.innerHTML = '';
@@ -34,7 +35,7 @@ var ASCIIFrameManager = function () {
             scroller.appendChild(element);
         }
 
-        $("a").click(function (e) {
+        $("#scroller a").click(function (e) {
             e.preventDefault();
             drawFrame(parseInt(e.target.text));
         });

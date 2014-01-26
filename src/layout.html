@@ -4,10 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>ASCII Animator</title>
         <link href="css/style.css" rel="stylesheet" type="text/css" />
-        <link href="css/jquery.thumbnailScroller.css" rel="stylesheet" type="text/css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="js/jquery-ui-1.8.13.custom.min.js"></script>
         <script src="js/ASCIIMatrix.js"></script>
         <script src="js/ASCIICanvas.js"></script>
         <script src="js/ASCIIFrameManager.js"></script>
@@ -24,7 +22,23 @@
             </div>
             
             <div align="left" id="thumbnails">
-
+                <div id="scroller">
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                    <a href="#">1</a>
+                </div>
             </div>
             
             <div align="left" class="button" id="addFrame">
@@ -37,34 +51,12 @@
             
             <div align="left" class="button" id="playPause">
             </div>
-            <div id="tS1" class="jThumbnailScroller">
-                    <div class="jTscrollerContainer">
-                        <div class="jTscroller">
-                        </div>
-                    </div>
-                </div>
+
+            
+
             <script type="text/javascript">
                 ASCIIFrameManager().init();
-                jQuery.noConflict();
-                (function($){
-                window.onload=function(){
-                    $("#tS1").thumbnailScroller({ 
-                        scrollerType:"hoverAccelerate", 
-                        scrollerOrientation:"horizontal", 
-                        scrollEasing:"easeOutCirc", 
-                        scrollEasingAmount:0, 
-                        acceleration:0, 
-                        scrollSpeed:0, 
-                        noScrollCenterSpace:0, 
-                        autoScrolling:0, 
-                        autoScrollingSpeed:0, 
-                        autoScrollingEasing:"easeInOutQuad", 
-                        autoScrollingDelay:0 
-                    });
-                }
-                })(jQuery);
             </script>
-            <script src="js/jquery.thumbnailScroller.js"></script>
         </div>
     </body>
 </html>
