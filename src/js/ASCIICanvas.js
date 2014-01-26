@@ -6,6 +6,7 @@ var ASCIICanvas = (function () {
     function getCharRenderedSize () {
             var canvasCharFontSize = $("#ascii").css("font-size");
             var canvasLineHeight = $("#ascii").css("line-height");
+
             var doc = document.body;
             var tmpDiv = document.createElement('div');
             var atts = {fontSize: canvasCharFontSize, padding:'0', position:'absolute', lineHeight: canvasLineHeight, visibility:'hidden', fontFamily:'monospace'};
@@ -36,21 +37,22 @@ var ASCIICanvas = (function () {
     return {
         drawFrame: function (frame) {
             var ascii = document.getElementById("ascii"),
-                line = '',
+                frameContent = '',
                 i = 0,
                 j = 0;
+
             //Clear previous frame
-            ascii.innerHTML = '';
+            $("#ascii")[0].cols = frame.getWidth();
+            $("#ascii")[0].rows = frame.getHeight();
 
             //Draw new frame
             for (i = 0; i < frame.getHeight(); i += 1) {
-                line = '';
                 for (j = 0; j < frame.getWidth(); j += 1) {
-                    line += mapColorToChar(frame.getElement(i, j));
+                    frameContent += frame.getElement(i, j);
                 }
-                ascii.appendChild(document.createTextNode(line));
-                ascii.appendChild(document.createElement("br"));
+                frameContent += '\n';
             }
+            $("#ascii")[0].value = frameContent;
         },
 
         getWidth: function () {

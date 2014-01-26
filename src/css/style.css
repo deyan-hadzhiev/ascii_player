@@ -5,10 +5,11 @@ body {
 }
 
 #ascii {
-	text-align: center;
+	text-align: left;
     font-family: monospace;
     font-size: 1em;
     line-height: 0.692em;
+    overflow: hidden;
 }
 
 #container {

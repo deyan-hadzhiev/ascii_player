@@ -10,7 +10,6 @@ var ASCIIFrameManager = function () {
         frameRate = 60;
 
     function drawFrame(frameIndex) {
-        console.log("drawFrame:" + frameIndex);
         if (frameIndex < frames.length) {
             currentFrameIndex = frameIndex;
             ASCIICanvas.drawFrame(frames[frameIndex]);
@@ -82,6 +81,30 @@ var ASCIIFrameManager = function () {
         }
     }
 
+    function appendUntilLength(string, symbolToAppend, desiredLength) {
+        while (string.length < desiredLength) {
+            string += symbolToAppend;
+        }
+
+        return string;
+    }
+
+    function editFrame(newFrame) {
+        var frameWidth = frames[currentFrameIndex].getWidth(),
+            frameHeight = frames[currentFrameIndex].getHeight(),
+            i = 0,
+            newFrameRows = 0;
+
+        newFrameRows = newFrame.split('\n');
+        for (i = 0; i < frameHeight; i += 1) {
+            if (undefined === newFrameRows[i]) {
+                frames[currentFrameIndex].setRow(i, appendUntilLength('', ' ', frameWidth).split('')); 
+            } else {
+                frames[currentFrameIndex].setRow(i, appendUntilLength(newFrameRows[i], ' ', frameWidth).split('')); 
+            }   
+        }        
+    }
+
     function initEventHandlers() {
         $("#addFrame").click(function (e) {
             e.preventDefault();
@@ -93,7 +116,6 @@ var ASCIIFrameManager = function () {
             e.preventDefault();
             removeFrameAt(currentFrameIndex);
             fillFrameList();
-            //console.log(frames);
         });
 
         $("#playPause").click(function (e) {
@@ -105,18 +127,22 @@ var ASCIIFrameManager = function () {
                 drawFrame(currentFrameIndex);
             }
         });
+
+        $("#ascii").focusout(function(){
+            editFrame($(this)[0].value);
+        });
     }
 
     return {
         init: function () {
             initEventHandlers();
-            addFrameAt(0, 0);
-            addFrameAt(1, 50);
-            addFrameAt(2, 100);
-            addFrameAt(3, 150);
-            addFrameAt(4, 170);
-            addFrameAt(5, 190);
-            addFrameAt(6, 210);
+            addFrameAt(0, 'a');
+            addFrameAt(1, 'b');
+            addFrameAt(2, 'v');
+            addFrameAt(3, 'g');
+            addFrameAt(4, 'd');
+            addFrameAt(5, 'e');
+            addFrameAt(6, 'j');
             fillFrameList();
         }
     };
