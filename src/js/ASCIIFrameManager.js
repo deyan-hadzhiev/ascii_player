@@ -13,6 +13,7 @@ var ASCIIFrameManager = function () {
     function drawFrame(frameIndex) {
         if (frameIndex < frames.length) {
             currentFrameIndex = frameIndex;
+            highlightFrame(frameIndex);
             ASCIICanvas.drawFrame(frames[frameIndex]);
 
             if (playing) {
@@ -56,6 +57,7 @@ var ASCIIFrameManager = function () {
         for (i = 0; i < frames.length; i += 1) {
             element = document.createElement('a');
             element.setAttribute('href', '#');
+            element.setAttribute('id', 'frame' + i);
             element.innerHTML = i;
             scroller.appendChild(element);
         }
@@ -64,6 +66,17 @@ var ASCIIFrameManager = function () {
             e.preventDefault();
             drawFrame(parseInt(e.target.text, 10));
         });
+    }
+
+    function highlightFrame(frameIndex) {
+        var i = 0;
+
+        //Clear other highlights
+        for (i = 0; i < frames.length; i += 1) {
+            $('#frame' + i).attr('class', 'deselected');
+        }
+
+        $('#frame' + frameIndex).attr('class', 'selected');
     }
 
     function addFrameAt(position, defaultValue, frameMatrix) {
@@ -81,7 +94,6 @@ var ASCIIFrameManager = function () {
 
         currentFrameIndex = position;
         frames.splice(position, 0, frame);
-        drawFrame(currentFrameIndex);
     }
 
     function removeFrameAt(position) {
@@ -128,12 +140,14 @@ var ASCIIFrameManager = function () {
             e.preventDefault();
             addFrameAt(currentFrameIndex + 1, null, new ASCIIMatrix(frames[currentFrameIndex]));
             fillFrameList();
+            drawFrame(currentFrameIndex);
         });
 
         $("#removeFrame").click(function (e) {
             e.preventDefault();
             removeFrameAt(currentFrameIndex);
             fillFrameList();
+            drawFrame(currentFrameIndex);
         });
 
         $("#playPause").click(function (e) {
@@ -233,6 +247,7 @@ var ASCIIFrameManager = function () {
             fileLoader.attachToInput("files");
             addFrameAt(0, 'a');
             fillFrameList();
+            drawFrame(0);
         }
     };
 };
