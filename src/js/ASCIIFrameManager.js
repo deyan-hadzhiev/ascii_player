@@ -98,12 +98,20 @@ var ASCIIFrameManager = function () {
         }
     }
 
-    function appendUntilLength(string, symbolToAppend, desiredLength) {
+    function fillStringUntilLength(string, character, desiredLength) {
         while (string.length < desiredLength) {
-            string += symbolToAppend;
+            string += character;
         }
 
         return string;
+    }
+
+    function fillArrayUntilLength (array, value, desiredLength) {
+        while (array.length < desiredLength) {
+            array.push(value);
+        }
+
+        return array;
     }
 
     function editFrame(newFrame) {
@@ -115,9 +123,9 @@ var ASCIIFrameManager = function () {
         newFrameRows = newFrame.split('\n');
         for (i = 0; i < frameHeight; i += 1) {
             if (undefined === newFrameRows[i]) {
-                frames[currentFrameIndex].setRow(i, appendUntilLength('', ' ', frameWidth).split(''));
+                frames[currentFrameIndex].setRow(i, fillStringUntilLength('', ' ', frameWidth).split(''));
             } else {
-                frames[currentFrameIndex].setRow(i, appendUntilLength(newFrameRows[i], ' ', frameWidth).split(''));
+                frames[currentFrameIndex].setRow(i, fillStringUntilLength(newFrameRows[i], ' ', frameWidth).split(''));
             }
         }
     }
@@ -164,18 +172,23 @@ var ASCIIFrameManager = function () {
             colordata,
             i = 0,
             j = 0,
+            row = [], 
             canvas = document.createElement("canvas"),
             canvasContext = canvas.getContext("2d"),
             newFrame = new ASCIIMatrix(),
-            pixels;
+            pixels,
+            scaleCoefficient = 1;
 
         img.src = file;
         img.className = 'test';
-        img.style.width = 'auto';
-        img.style.maxHeight = frames[0].getHeight() + 'px';
 
-        frameWidth = frames[0].getWidth();
-        frameHeight = frames[0].getHeight();
+        scaleCoefficient = frames[0].getHeight() / img.height;
+        img.width = Math.floor(img.width * scaleCoefficient);
+        img.height = Math.floor(img.height * scaleCoefficient);
+
+        console.log(img);
+        frameWidth = img.width;
+        frameHeight = img.height;
         canvas.width = frameWidth;
         canvas.height = frameHeight;
 
@@ -197,14 +210,23 @@ var ASCIIFrameManager = function () {
             //converting the pixel into grayscale
             gray = 0.2126 * r + 0.7152 * g + 0.0722 * b; //http://en.wikipedia.org/wiki/Grayscale
 
-            if (i !== 0 && (i / 4) % frameWidth === 0) {//if the pointer reaches end of pixel-line
+            //if the pointer reaches end of pixel-line
+            if (i !== 0 && (i / 4) % frameWidth === 0) {
+                //Fill the line with ' '
+                fillArrayUntilLength(row, 255, frames[0].getWidth());
+                newFrame.setRow(j, row);
+                row = [];
                 j += 1;
             }
 
-            newFrame.setElement(j, (i / 4) % frameWidth, gray);
+            row.push(gray);
+            //newFrame.setElement(j, (i / 4) % frameWidth, gray);
         }
 
-        //document.getElementById('testImage').appendChild(canvas);
+        fillArrayUntilLength(row, 255, frames[0].getWidth());
+        newFrame.setRow(j, row);
+
+        document.getElementById('testImage').appendChild(canvas);
         addFrameAt(currentFrameIndex, 0, newFrame);
         fillFrameList();
     }
