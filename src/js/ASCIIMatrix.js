@@ -1,11 +1,12 @@
 var ASCIIMatrix = function (copy) {
     "use strict";
     var arr = [],
-        copyIndex = 0;
+        copyIndex = 0,
+        i = 0;
 
     if (copy !== undefined) {
-        for (copyIndex = 0; copyIndex < copy.arr.length; copyIndex += 1) {
-            arr[copyIndex] = copy.arr[copyIndex].slice();
+        for (i = 0; i < copy.getHeight(); i += 1) {
+            arr.push(copy.getRow(i).slice());
         }
     }
 
