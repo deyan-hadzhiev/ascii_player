@@ -191,6 +191,10 @@ var ASCIIFrameManager = function () {
 
         // playing it safe ...
         img.onload = function () {
+            scaleCoefficient = frames[0].getHeight() / img.height;
+            img.width = Math.floor(img.width * scaleCoefficient);
+            img.height = Math.floor(img.height * scaleCoefficient);
+
             frameWidth = img.width;
             frameHeight = img.height;
             canvas.width = frameWidth;
@@ -230,17 +234,13 @@ var ASCIIFrameManager = function () {
             fillArrayUntilLength(row, 255, frames[0].getWidth());
             newFrame.setRow(j, row);
 
-            document.getElementById('testImage').appendChild(canvas);
+            //document.getElementById('testImage').appendChild(canvas);
             addFrameAt(currentFrameIndex, 0, newFrame);
             fillFrameList();
         };
 
         img.className = 'test';
         img.src = file;
-
-        scaleCoefficient = frames[0].getHeight() / img.height;
-        img.width = Math.floor(img.width * scaleCoefficient);
-        img.height = Math.floor(img.height * scaleCoefficient);
     }
 
     return {
