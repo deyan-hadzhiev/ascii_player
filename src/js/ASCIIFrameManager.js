@@ -192,6 +192,8 @@ var ASCIIFrameManager = function () {
         canvas.width = frameWidth;
         canvas.height = frameHeight;
 
+        // playing it safe ...
+        img.onload = function() {
         //painting the canvas white before painting the image to deal with pngs
         canvasContext.fillStyle = "white";
         canvasContext.fillRect(0, 0, frameWidth, frameHeight);
@@ -231,18 +233,18 @@ var ASCIIFrameManager = function () {
         fillFrameList();
     }
 
+        img.className = 'test';
+        img.style.width = 'auto';
+        img.style.maxHeight = frames[0].getHeight() + 'px';
+        img.src = file;
+    }
+
     return {
         init: function () {
             initEventHandlers();
             fileLoader.setOnLoadCallback(onFileLoad);
             fileLoader.attachToInput("files");
             addFrameAt(0, 'a');
-            addFrameAt(1, 'b');
-            addFrameAt(2, 'v');
-            addFrameAt(3, 'g');
-            addFrameAt(4, 'd');
-            addFrameAt(5, 'e');
-            addFrameAt(6, 'j');
             fillFrameList();
         }
     };
