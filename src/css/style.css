@@ -144,6 +144,14 @@ body {
     cursor: default;
 }
 
+#scroller a.selected {
+    color: red;
+}
+
+#scroller a.delesected {
+    color: black;
+}
+
 .checkbox {
     margin: 5px;
 }

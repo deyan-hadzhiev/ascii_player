@@ -13,6 +13,7 @@ var ASCIIFrameManager = function () {
     function drawFrame(frameIndex) {
         if (frameIndex < frames.length) {
             currentFrameIndex = frameIndex;
+            highlightFrame(frameIndex);
             ASCIICanvas.drawFrame(frames[frameIndex]);
 
             if (playing) {
@@ -58,6 +59,7 @@ var ASCIIFrameManager = function () {
         for (i = 0; i < frames.length; i += 1) {
             element = document.createElement('a');
             element.setAttribute('href', '#');
+            element.setAttribute('id', 'frame' + i);
             element.innerHTML = i;
             scroller.appendChild(element);
         }
@@ -68,17 +70,21 @@ var ASCIIFrameManager = function () {
         });
     }
 
+    function highlightFrame(frameIndex) {
+        var i = 0;
+
+        //Clear other highlights
+        for (i = 0; i < frames.length; i += 1) {
+            $('#frame' + i).attr('class', 'deselected');
+        }
+
+        $('#frame' + frameIndex).attr('class', 'selected');
+    }
+
     function addFrameAt(position, defaultValue, frameMatrix) {
         var frame = new ASCIIMatrix(),
             frameWidth = 0,
             frameHeight = 0;
-
-        // //No frame selected currently (probably first insertion)
-        // if (undefined === frames[currentFrameIndex]) {
-        //     frame = new ASCIIMatrix();
-        // } else {
-        //     frame = new ASCIIMatrix(frames[currentFrameIndex]);
-        // }
 
         if (undefined === frameMatrix) {
             frameWidth = Math.floor((ASCIICanvas.getWidth() - 2) / ASCIICanvas.getFontWidth());
@@ -90,7 +96,6 @@ var ASCIIFrameManager = function () {
 
         currentFrameIndex = position;
         frames.splice(position, 0, frame);
-        drawFrame(currentFrameIndex);
     }
 
     function removeFrameAt(position) {
@@ -100,12 +105,20 @@ var ASCIIFrameManager = function () {
         }
     }
 
-    function appendUntilLength(string, symbolToAppend, desiredLength) {
+    function fillStringUntilLength(string, character, desiredLength) {
         while (string.length < desiredLength) {
-            string += symbolToAppend;
+            string += character;
         }
 
         return string;
+    }
+
+    function fillArrayUntilLength(array, value, desiredLength) {
+        while (array.length < desiredLength) {
+            array.push(value);
+        }
+
+        return array;
     }
 
     function editFrame(newFrame) {
@@ -117,9 +130,9 @@ var ASCIIFrameManager = function () {
         newFrameRows = newFrame.split('\n');
         for (i = 0; i < frameHeight; i += 1) {
             if (undefined === newFrameRows[i]) {
-                frames[currentFrameIndex].setRow(i, appendUntilLength('', ' ', frameWidth).split(''));
+                frames[currentFrameIndex].setRow(i, fillStringUntilLength('', ' ', frameWidth).split(''));
             } else {
-                frames[currentFrameIndex].setRow(i, appendUntilLength(newFrameRows[i], ' ', frameWidth).split(''));
+                frames[currentFrameIndex].setRow(i, fillStringUntilLength(newFrameRows[i], ' ', frameWidth).split(''));
             }
         }
     }
@@ -129,12 +142,14 @@ var ASCIIFrameManager = function () {
             e.preventDefault();
             addFrameAt(currentFrameIndex + 1, null, new ASCIIMatrix(frames[currentFrameIndex]));
             fillFrameList();
+            drawFrame(currentFrameIndex);
         });
 
         $("#removeFrame").click(function (e) {
             e.preventDefault();
             removeFrameAt(currentFrameIndex);
             fillFrameList();
+            drawFrame(currentFrameIndex);
         });
 
         $("#playPause").click(function (e) {
@@ -167,18 +182,20 @@ var ASCIIFrameManager = function () {
             colordata,
             i = 0,
             j = 0,
+            row = [],
             canvas = document.createElement("canvas"),
             canvasContext = canvas.getContext("2d"),
             newFrame = new ASCIIMatrix(),
-            pixels;
-
-        frameWidth = frames[0].getWidth();
-        frameHeight = frames[0].getHeight();
-        canvas.width = frameWidth;
-        canvas.height = frameHeight;
+            pixels,
+            scaleCoefficient = 1;
 
         // playing it safe ...
-        img.onload = function() {
+        img.onload = function () {
+            frameWidth = img.width;
+            frameHeight = img.height;
+            canvas.width = frameWidth;
+            canvas.height = frameHeight;
+
             //painting the canvas white before painting the image to deal with pngs
             canvasContext.fillStyle = "white";
             canvasContext.fillRect(0, 0, frameWidth, frameHeight);
@@ -194,25 +211,36 @@ var ASCIIFrameManager = function () {
                 r = colordata[i];
                 g = colordata[i + 1];
                 b = colordata[i + 2];
-                //converting the pixel into grayscale
-                gray = 0.2126 * r + 0.7152 * g + 0.0722 * b; //http://en.wikipedia.org/wiki/Grayscale
 
-                if (i !== 0 && (i / 4) % frameWidth === 0) {//if the pointer reaches end of pixel-line
+                //converting the pixel into grayscale http://en.wikipedia.org/wiki/Grayscale
+                gray = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+                //if the pointer reaches end of pixel-line
+                if (i !== 0 && (i / 4) % frameWidth === 0) {
+                    //Fill the line with ' '
+                    fillArrayUntilLength(row, 255, frames[0].getWidth());
+                    newFrame.setRow(j, row);
+                    row = [];
                     j += 1;
                 }
 
-                newFrame.setElement(j, (i / 4) % frameWidth, gray);
+                row.push(gray);
             }
 
-            //document.getElementById('testImage').appendChild(canvas);
+            fillArrayUntilLength(row, 255, frames[0].getWidth());
+            newFrame.setRow(j, row);
+
+            document.getElementById('testImage').appendChild(canvas);
             addFrameAt(currentFrameIndex, 0, newFrame);
             fillFrameList();
-        }
+        };
 
         img.className = 'test';
-        img.style.width = 'auto';
-        img.style.maxHeight = frames[0].getHeight() + 'px';
         img.src = file;
+
+        scaleCoefficient = frames[0].getHeight() / img.height;
+        img.width = Math.floor(img.width * scaleCoefficient);
+        img.height = Math.floor(img.height * scaleCoefficient);
     }
 
     return {
@@ -222,6 +250,7 @@ var ASCIIFrameManager = function () {
             fileLoader.attachToInput("files");
             addFrameAt(0, 'a');
             fillFrameList();
+            drawFrame(0);
         }
     };
 };
