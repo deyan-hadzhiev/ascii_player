@@ -169,44 +169,47 @@ var ASCIIFrameManager = function () {
             newFrame = new ASCIIMatrix(),
             pixels;
 
-        img.src = file;
-        img.className = 'test';
-        img.style.width = 'auto';
-        img.style.maxHeight = frames[0].getHeight() + 'px';
-
         frameWidth = frames[0].getWidth();
         frameHeight = frames[0].getHeight();
         canvas.width = frameWidth;
         canvas.height = frameHeight;
 
-        //painting the canvas white before painting the image to deal with pngs
-        canvasContext.fillStyle = "white";
-        canvasContext.fillRect(0, 0, frameWidth, frameHeight);
+        // playing it safe ...
+        img.onload = function() {
+            //painting the canvas white before painting the image to deal with pngs
+            canvasContext.fillStyle = "white";
+            canvasContext.fillRect(0, 0, frameWidth, frameHeight);
 
-        //drawing the image on the canvas
-        canvasContext.drawImage(img, 0, 0, frameWidth, frameHeight);
+            //drawing the image on the canvas
+            canvasContext.drawImage(img, 0, 0, frameWidth, frameHeight);
 
-        //accessing pixel data
-        pixels = canvasContext.getImageData(0, 0, frameWidth, frameHeight);
-        colordata = pixels.data;
-        newFrame.init(frameHeight, frameWidth);
-        for (i = 0; i < colordata.length; i += 4) {
-            r = colordata[i];
-            g = colordata[i + 1];
-            b = colordata[i + 2];
-            //converting the pixel into grayscale
-            gray = 0.2126 * r + 0.7152 * g + 0.0722 * b; //http://en.wikipedia.org/wiki/Grayscale
+            //accessing pixel data
+            pixels = canvasContext.getImageData(0, 0, frameWidth, frameHeight);
+            colordata = pixels.data;
+            newFrame.init(frameHeight, frameWidth);
+            for (i = 0; i < colordata.length; i += 4) {
+                r = colordata[i];
+                g = colordata[i + 1];
+                b = colordata[i + 2];
+                //converting the pixel into grayscale
+                gray = 0.2126 * r + 0.7152 * g + 0.0722 * b; //http://en.wikipedia.org/wiki/Grayscale
 
-            if (i !== 0 && (i / 4) % frameWidth === 0) {//if the pointer reaches end of pixel-line
-                j += 1;
+                if (i !== 0 && (i / 4) % frameWidth === 0) {//if the pointer reaches end of pixel-line
+                    j += 1;
+                }
+
+                newFrame.setElement(j, (i / 4) % frameWidth, gray);
             }
 
-            newFrame.setElement(j, (i / 4) % frameWidth, gray);
+            //document.getElementById('testImage').appendChild(canvas);
+            addFrameAt(currentFrameIndex, 0, newFrame);
+            fillFrameList();
         }
 
-        //document.getElementById('testImage').appendChild(canvas);
-        addFrameAt(currentFrameIndex, 0, newFrame);
-        fillFrameList();
+        img.className = 'test';
+        img.style.width = 'auto';
+        img.style.maxHeight = frames[0].getHeight() + 'px';
+        img.src = file;
     }
 
     return {
@@ -215,12 +218,6 @@ var ASCIIFrameManager = function () {
             fileLoader.setOnLoadCallback(onFileLoad);
             fileLoader.attachToInput("files");
             addFrameAt(0, 'a');
-            addFrameAt(1, 'b');
-            addFrameAt(2, 'v');
-            addFrameAt(3, 'g');
-            addFrameAt(4, 'd');
-            addFrameAt(5, 'e');
-            addFrameAt(6, 'j');
             fillFrameList();
         }
     };
