@@ -25,8 +25,8 @@ var ASCIICanvas = (function () {
     }
 
     function mapColorToChar(colorValue) {
-        var charSet = '@0` ',
-            //charSet = '"@MBHENR#KWXDFPQASUZbdehx*8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[] {}?j|()=~!-/<>\"^_\';,:`. "',
+        var //charSet = '@0` ',
+            charSet = '"@MBHENR#KWXDFPQASUZbdehx*8Gm&04LOVYkpq5Tagns69owz$CIu23Jcfry%1v7l+it[] {}?j|()=~!-/<>\"^_\';,:`. "',
             //charSet = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ",
             colorInterval = 256 / charSet.length,
             i = 0;

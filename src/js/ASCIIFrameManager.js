@@ -71,6 +71,13 @@ var ASCIIFrameManager = function () {
             frameWidth = 0,
             frameHeight = 0;
 
+        // //No frame selected currently (probably first insertion)
+        // if (undefined === frames[currentFrameIndex]) {
+        //     frame = new ASCIIMatrix();
+        // } else {
+        //     frame = new ASCIIMatrix(frames[currentFrameIndex]);
+        // }
+
         if (undefined === frameMatrix) {
             frameWidth = Math.floor((ASCIICanvas.getWidth() - 2) / ASCIICanvas.getFontWidth());
             frameHeight = Math.floor((ASCIICanvas.getHeight() - 2) / ASCIICanvas.getFontHeight());
@@ -118,7 +125,7 @@ var ASCIIFrameManager = function () {
     function initEventHandlers() {
         $("#addFrame").click(function (e) {
             e.preventDefault();
-            addFrameAt(currentFrameIndex + 1);
+            addFrameAt(currentFrameIndex + 1, null, new ASCIIMatrix(frames[currentFrameIndex]));
             fillFrameList();
         });
 
