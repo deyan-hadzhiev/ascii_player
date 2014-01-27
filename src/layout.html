@@ -8,6 +8,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="js/ASCIIMatrix.js"></script>
         <script src="js/ASCIICanvas.js"></script>
+        <script src="js/ASCIIFileLoader.js"></script>
         <script src="js/ASCIIFrameManager.js"></script>
     </head>
 
@@ -46,6 +47,11 @@
                 <div class="text-field-wrapper">
                     Framerate(fps) :
                     <input type="text" class="textfield" id="fps" value="30">
+                </div>
+                
+                <input type="file" id="files" accept="image/*" multiple/>
+                <div id="testImage">
+
                 </div>
             </div>
 
