@@ -248,12 +248,15 @@ var ASCIIFrameManager = function () {
             fileLoader.setOnLoadCallback(onFileLoad);
             fileLoader.attachToInput("files");
 
-            onFileLoad('res/tmp-0.gif');
-            onFileLoad('res/tmp-1.gif');
-            onFileLoad('res/tmp-2.gif');
-            onFileLoad('res/tmp-3.gif');
-            onFileLoad('res/tmp-4.gif');
-            onFileLoad('res/tmp-5.gif');
+            for (var i = 0; i < 103; i += 1) {
+                onFileLoad('res/' + i + '.gif');
+            }
+            // onFileLoad('res/tmp-0.gif');
+            // onFileLoad('res/tmp-1.gif');
+            // onFileLoad('res/tmp-2.gif');
+            // onFileLoad('res/tmp-3.gif');
+            // onFileLoad('res/tmp-4.gif');
+            // onFileLoad('res/tmp-5.gif');
         }
     };
 };
