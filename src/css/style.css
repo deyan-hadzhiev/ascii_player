@@ -1,6 +1,7 @@
 * {margin: 0; padding: 0;}
 
 body {
+    background: radial-gradient(#AAA, #111);//#555;
     text-align: center;
 }
 
@@ -10,9 +11,12 @@ body {
     font-size: 1em;
     line-height: 0.692em;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 
 #container {
+    background: #666;
     overflow: hidden;
     display: inline-block;
     margin: 20px;
@@ -20,6 +24,7 @@ body {
 }
 
 #cheat-sheet {
+    background: #999;
     filter: flipv fliph;
     width: 220px;
     height: 480px;
@@ -47,12 +52,62 @@ body {
 }
 
 .button {
-    background-color: #999;
+    background: radial-gradient(#2A70E8, #104085);//#2A70E8;
     margin: 5px;
     float: left;
     height: 54px;
     width: 54px;
-    border: thin solid #000;
+    border: 2px solid #2A70E8;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.shape-wrapper {
+    padding: 9px;
+}
+
+.shape-wrapper > .add {
+    position: relative;
+    top: 14px;
+    width: 36px;
+    height: 8px;
+    background: #22cc22;
+}
+
+.shape-wrapper > .add + .add {
+    position: relative;
+    top: -8px;
+    left: 40%;
+    right: 12px;
+    height: 36px;
+    width: 8px;
+}
+
+.remove {
+    width: 36px;
+    height: 8px;
+    position: relative;
+    top: 14px;
+    background: #dd2200;
+}
+
+.play {
+	width: 0;
+	height: 0;
+	border-top: 18px solid transparent;
+	border-left: 36px solid #dddd00;
+	border-bottom: 18px solid transparent;
+}
+
+.pause {
+    width: 36px;
+	height: 36px;
+	background: #ee5500;
+}
+
+.button:hover {
+    background: #2A70E8;
+    cursor: pointer;
 }
 
 #scroller{
@@ -73,6 +128,20 @@ body {
 	margin: 5px;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-style: normal;
+}
+
+#toolbar, .text-field-wrapper, .button, .loop-cbox-wrapper {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline: 0;
+}
+
+.text-field-wrapper, .loop-cbox-wrapper {
+    cursor: default;
 }
 
 #scroller a.selected {

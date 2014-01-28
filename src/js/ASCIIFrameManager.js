@@ -32,6 +32,7 @@ var ASCIIFrameManager = function () {
                             drawFrame(0);
                         } else {
                             playing = false;
+                            document.getElementById("playIcon").className = 'play';
                         }
 
                     }
@@ -41,6 +42,7 @@ var ASCIIFrameManager = function () {
 
         } else {
             playing = false;
+            document.getElementById("playIcon").className = 'play';
             console.log("Incorrect frame index: ", frameIndex);
         }
     }
@@ -154,6 +156,7 @@ var ASCIIFrameManager = function () {
 
         $("#playPause").click(function (e) {
             e.preventDefault();
+            document.getElementById("playIcon").className = (playing ? 'play' : 'pause');
             if (playing) {
                 playing = false;
             } else {
