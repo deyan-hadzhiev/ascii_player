@@ -4,11 +4,13 @@ var ASCIIFrameManager = function () {
     "use strict";
 
     var playing = false,
-        currentFrameIndex = 0,
+        currentFrameIndex = -1,
         frames = [],
         loopFrames = false,
         frameRate = 30,
-        fileLoader = new ASCIIFileLoader();
+        fileLoader = new ASCIIFileLoader(),
+        canvasHeight = Math.floor((ASCIICanvas.getHeight()) / ASCIICanvas.getFontHeight()),
+        canvasWidth = Math.floor((ASCIICanvas.getWidth()) / ASCIICanvas.getFontWidth());
 
     function drawFrame(frameIndex) {
         if (frameIndex < frames.length) {
@@ -85,8 +87,8 @@ var ASCIIFrameManager = function () {
             frameHeight = 0;
 
         if (undefined === frameMatrix) {
-            frameWidth = Math.floor((ASCIICanvas.getWidth() - 2) / ASCIICanvas.getFontWidth());
-            frameHeight = Math.floor((ASCIICanvas.getHeight() - 2) / ASCIICanvas.getFontHeight());
+            frameWidth = canvasWidth;
+            frameHeight = canvasHeight;
             frame.init(frameHeight, frameWidth, defaultValue);
         } else {
             frame = frameMatrix;
@@ -120,8 +122,8 @@ var ASCIIFrameManager = function () {
     }
 
     function editFrame(newFrame) {
-        var frameWidth = frames[currentFrameIndex].getWidth(),
-            frameHeight = frames[currentFrameIndex].getHeight(),
+        var frameWidth = canvasWidth,
+            frameHeight = canvasHeight,
             i = 0,
             newFrameRows = 0;
 
@@ -188,6 +190,14 @@ var ASCIIFrameManager = function () {
 
         // playing it safe ...
         img.onload = function () {
+            if (img.height > img.width) {
+                scaleCoefficient = canvasHeight / img.height;
+            } else {
+                scaleCoefficient = canvasWidth / img.width;
+            }
+
+            img.width = Math.ceil(img.width * scaleCoefficient);
+            img.height = Math.ceil(img.height * scaleCoefficient);
             frameWidth = img.width;
             frameHeight = img.height;
             canvas.width = frameWidth;
@@ -199,11 +209,10 @@ var ASCIIFrameManager = function () {
 
             //drawing the image on the canvas
             canvasContext.drawImage(img, 0, 0, frameWidth, frameHeight);
-
             //accessing pixel data
             pixels = canvasContext.getImageData(0, 0, frameWidth, frameHeight);
             colordata = pixels.data;
-            newFrame.init(frameHeight, frameWidth);
+            newFrame.init(canvasHeight, canvasWidth, ' ');
             for (i = 0; i < colordata.length; i += 4) {
                 r = colordata[i];
                 g = colordata[i + 1];
@@ -214,30 +223,20 @@ var ASCIIFrameManager = function () {
 
                 //if the pointer reaches end of pixel-line
                 if (i !== 0 && (i / 4) % frameWidth === 0) {
-                    //Fill the line with ' '
-                    fillArrayUntilLength(row, 255, frames[0].getWidth());
-                    newFrame.setRow(j, row);
-                    row = [];
                     j += 1;
                 }
 
-                row.push(gray);
+                newFrame.setElement(j, (i / 4) % frameWidth, gray);
             }
 
-            fillArrayUntilLength(row, 255, frames[0].getWidth());
-            newFrame.setRow(j, row);
-
-            document.getElementById('testImage').appendChild(canvas);
-            addFrameAt(currentFrameIndex, 0, newFrame);
+            //document.getElementById('testImage').appendChild(canvas);
+            addFrameAt(currentFrameIndex + 1, 0, newFrame);
             fillFrameList();
+            drawFrame(currentFrameIndex);
         };
 
         img.className = 'test';
         img.src = file;
-
-        scaleCoefficient = frames[0].getHeight() / img.height;
-        img.width = Math.floor(img.width * scaleCoefficient);
-        img.height = Math.floor(img.height * scaleCoefficient);
     }
 
     return {
@@ -245,9 +244,13 @@ var ASCIIFrameManager = function () {
             initEventHandlers();
             fileLoader.setOnLoadCallback(onFileLoad);
             fileLoader.attachToInput("files");
-            addFrameAt(0, 'a');
-            fillFrameList();
-            drawFrame(0);
+
+            onFileLoad('res/tmp-0.gif');
+            onFileLoad('res/tmp-1.gif');
+            onFileLoad('res/tmp-2.gif');
+            onFileLoad('res/tmp-3.gif');
+            onFileLoad('res/tmp-4.gif');
+            onFileLoad('res/tmp-5.gif');
         }
     };
 };
