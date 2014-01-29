@@ -1,1 +1,0 @@
-A university project for the WWW course
