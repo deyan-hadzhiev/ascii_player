@@ -148,15 +148,17 @@ var ASCIIFrameManager = function () {
 
         $("#playPause").click(function (e) {
             e.preventDefault();
-            document.getElementById("playIcon").className = (playing ? 'play' : 'pause');
-            if (playing) {
-                playing = false;
-            } else {
-                playing = true;
-                if (currentFrameIndex + 1 >= frames.length) {
-                    currentFrameIndex = 0;
+            if (frames.length > 0) {
+                document.getElementById("playIcon").className = (playing ? 'play' : 'pause');
+                if (playing) {
+                    playing = false;
+                } else {
+                    playing = true;
+                    if (currentFrameIndex + 1 >= frames.length) {
+                        currentFrameIndex = 0;
+                    }
+                    drawFrame(currentFrameIndex);
                 }
-                drawFrame(currentFrameIndex);
             }
         });
 
