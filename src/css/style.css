@@ -5,6 +5,27 @@ body {
     text-align: center;
 }
 
+header {
+    padding: 10px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #9A98F8;
+}
+
+header h1 {
+    font-size: 3.5em;
+}
+
+footer {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #9A98F8;
+}
+
+footer p {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 #ascii {
 	text-align: left;
     font-family: monospace;
@@ -26,7 +47,7 @@ body {
 #cheat-sheet {
     background: #999;
     filter: flipv fliph;
-    width: 220px;
+    width: 240px;
     height: 480px;
     border: thin solid #000;
     margin: 5px;
@@ -138,6 +159,8 @@ body {
     -ms-user-select: none;
     user-select: none;
     outline: 0;
+    color: #083045;
+    font-weight: bold;
 }
 
 .text-field-wrapper, .loop-cbox-wrapper {
