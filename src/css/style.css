@@ -37,7 +37,7 @@ footer p {
 }
 
 #container {
-    background: #666;
+    background: #4D1749;
     overflow: hidden;
     display: inline-block;
     margin: 20px;
@@ -57,7 +57,7 @@ footer p {
 }
 
 .button {
-    background: radial-gradient(#2A70E8, #104085);//#2A70E8;
+    background: radial-gradient(#2A70E8, #104085);/*#2A70E8;*/
     margin: 5px;
     float: left;
     height: 54px;
