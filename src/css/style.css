@@ -1,7 +1,7 @@
 * {margin: 0; padding: 0;}
 
 body {
-    background: radial-gradient(#AAA, #111);//#555;
+    background: radial-gradient(#a7a, #636);//#555;
     text-align: center;
 }
 
@@ -41,18 +41,11 @@ footer p {
     overflow: hidden;
     display: inline-block;
     margin: 20px;
+    padding: 5px;
     border: thin solid #000;
+    border-radius: 5px;
 }
 
-#cheat-sheet {
-    background: #999;
-    filter: flipv fliph;
-    width: 240px;
-    height: 480px;
-    border: thin solid #000;
-    margin: 5px;
-    float: left;
-} 
 #current-frame {
     background-color: #CCC;
     border: thin solid #000;
@@ -61,15 +54,6 @@ footer p {
     height: 480px;
     width: 640px;
     clear: none;
-}
-#thumbnails {
-	margin: 5px;
-	clear: left;
-	float: left;
-	height: 54px;
-	width: 506px;
-	background-color: #EEE;
-	border: thin solid #000;
 }
 
 .button {
@@ -131,24 +115,46 @@ footer p {
     cursor: pointer;
 }
 
+#thumbnails {
+    margin: 5px;
+    float: left;
+    clear: both;
+    display: block;
+    height: 480px;
+    width: 75px;
+    background-color: #eee;
+    border: thin solid #000;
+}
+
 #scroller{
-	width: 506px;
-	height: 54px;
+	width: 100%;
+	height: 100%;
     overflow: scroll;
-    overflow-y: hidden;
-    -ms-overflow-y: hidden;
+    overflow-x: hidden;
     scrollbar-base-color: #ffeaff;
     white-space: nowrap;
+    background: linear-gradient(0deg, #3060A5, #4AA0F8);
 }
 
 #scroller a:link, a:visited, a:hover, a:active {
-	color: black;
+    display: block;
+    color: #dddd00;
 	font-size: 150%;
 	text-decoration: none;
-	display : inline-block;
+	text-align: center;
 	margin: 5px;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-style: normal;
+}
+
+#scroller a.selected {
+    color: #ff5500;
+    background: radial-gradient(#2A70E8, #104085);
+    border-radius: 8px;
+}
+
+#scroller a.delesected {
+    color: #dddd00;
 }
 
 #toolbar, .text-field-wrapper, .button, .loop-cbox-wrapper {
@@ -165,14 +171,6 @@ footer p {
 
 .text-field-wrapper, .loop-cbox-wrapper {
     cursor: default;
-}
-
-#scroller a.selected {
-    color: red;
-}
-
-#scroller a.delesected {
-    color: black;
 }
 
 .checkbox {
