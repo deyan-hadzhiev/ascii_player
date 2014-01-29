@@ -29,6 +29,13 @@
             
             <div id="toolbar">
                 
+                <div align="left" class="button" title="Load frames from the PC">
+                    <input type="file" class="file" multiple accept="image/*" id="filesInput" hidden/>
+                    <div class="shape-wrapper" id="files">
+                        <img src="res/folder1.png" id="loaderBackground" />
+                    </div>
+                </div>
+
                 <div align="left" class="button" id="addFrame" title="Add a new frame">
                     <div class="shape-wrapper">
                         <div class="add"></div>
@@ -45,13 +52,6 @@
                 <div align="left" class="button" id="playPause" title="Play/Pause">
                     <div class="shape-wrapper">
                         <div id="playIcon" class="play"></div>
-                    </div>
-                </div>
-
-                <div align="left" class="fileinputs" title="Load frames from the PC">
-                    <input type="file" class="file" multiple accept="image/*" id="filesInput"/>
-                    <div class="fakefile button" id="files">
-                        <img src="res/folder1.png" id="loaderBackground" />
                     </div>
                 </div>
 
