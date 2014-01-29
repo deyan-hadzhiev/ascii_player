@@ -1,6 +1,6 @@
 A university project for the WWW course for visualizing ASCII animations
 Source Files:
-  ./src/layout.html
+  ./src/index.html
   ./src/js/ASCIICanvas.js
   ./src/js/ASCIIFileLoader.js
   ./src/js/ASCIIFrameManager.js
