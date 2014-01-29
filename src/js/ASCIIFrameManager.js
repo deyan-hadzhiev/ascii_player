@@ -9,8 +9,8 @@ var ASCIIFrameManager = function () {
         loopFrames = false,
         frameRate = 30,
         fileLoader = new ASCIIFileLoader(),
-        canvasHeight = Math.floor((ASCIICanvas.getHeight()) / ASCIICanvas.getFontHeight()),
-        canvasWidth = Math.floor((ASCIICanvas.getWidth()) / ASCIICanvas.getFontWidth());
+        canvasHeight = Math.floor((ASCIICanvas.getHeight() - 1) / ASCIICanvas.getFontHeight()),
+        canvasWidth = Math.floor((ASCIICanvas.getWidth() - 1) / ASCIICanvas.getFontWidth());
 
     function highlightFrame(frameIndex) {
         var i = 0;
