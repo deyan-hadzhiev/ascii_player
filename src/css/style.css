@@ -180,3 +180,33 @@ footer p {
 .textfield {
     width: 3em;
 }
+
+
+/*#fileLoader {
+    width: 0px;
+    height: 0px;
+}
+
+#files {
+   filter: alpha(opacity=0);
+   opacity: 0;
+   z-index: -100;
+}*/
+
+#loaderBackground {
+    margin-left: 0px;
+    margin-top: 2px;
+}
+
+/*div.fileinputs {
+    position: relative;
+}*/
+
+div.fakefile {
+    z-index: 1;
+}
+
+input.file {
+    position: relative;
+    z-index: -1;
+}

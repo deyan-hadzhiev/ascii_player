@@ -148,20 +148,26 @@ var ASCIIFrameManager = function () {
 
         $("#playPause").click(function (e) {
             e.preventDefault();
-            document.getElementById("playIcon").className = (playing ? 'play' : 'pause');
-            if (playing) {
-                playing = false;
-            } else {
-                playing = true;
-                if (currentFrameIndex + 1 >= frames.length) {
-                    currentFrameIndex = 0;
+            if (frames.length > 0) {
+                document.getElementById("playIcon").className = (playing ? 'play' : 'pause');
+                if (playing) {
+                    playing = false;
+                } else {
+                    playing = true;
+                    if (currentFrameIndex + 1 >= frames.length) {
+                        currentFrameIndex = 0;
+                    }
+                    drawFrame(currentFrameIndex);
                 }
-                drawFrame(currentFrameIndex);
             }
         });
 
         $("#ascii").focusout(function () {
             editFrame($(this)[0].value);
+        });
+
+        $("#files").click(function () {
+            document.getElementById("filesInput").click();
         });
     }
 
@@ -232,7 +238,7 @@ var ASCIIFrameManager = function () {
             var i = 0;
             initEventHandlers();
             fileLoader.setOnLoadCallback(onFileLoad);
-            fileLoader.attachToInput("files");
+            fileLoader.attachToInput("filesInput");
 
             for (i = 0; i < 36; i += 1) {
                 onFileLoad('res/' + i + '.gif');
