@@ -163,6 +163,10 @@ var ASCIIFrameManager = function () {
         $("#ascii").focusout(function () {
             editFrame($(this)[0].value);
         });
+
+        $("#files").click(function () {
+            document.getElementById("filesInput").click();
+        });
     }
 
     function onFileLoad(file) {
@@ -232,7 +236,7 @@ var ASCIIFrameManager = function () {
             var i = 0;
             initEventHandlers();
             fileLoader.setOnLoadCallback(onFileLoad);
-            fileLoader.attachToInput("files");
+            fileLoader.attachToInput("filesInput");
 
             for (i = 0; i < 36; i += 1) {
                 onFileLoad('res/' + i + '.gif');
